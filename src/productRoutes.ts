@@ -28,6 +28,10 @@ router.get("/products/:id", async (req: Request, res: Response) => {
       WHERE product_id = $1`,
       [id],
     );
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: "Product not found" });
+      return;
+    }
     res.status(200).json(result.rows);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
@@ -58,8 +62,12 @@ router.patch("/products/:id/price", async (req: Request, res: Response) => {
       SET unit_price = $1
       WHERE product_id = $2
       RETURNING product_id, product_name, category, unit_price`,
-      [unit_price, id]
+      [unit_price, id],
     );
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: "Product not found" });
+      return;
+    }
     res.status(200).json(result.rows[0]);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
