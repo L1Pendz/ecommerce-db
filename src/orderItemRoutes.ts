@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { pool } from "./db";
-import { Order, OrderItem } from "./types";
+import { OrderItem } from "./types";
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get(
         [orderId],
       );
       if (result.rows.length === 0) {
-        return res.status(404).json({ error: "No line items found for this order" });
+        return res.status(404).json({ error: "Order not found" });
       }
       res.status(200).json(result.rows);
     } catch (error) {

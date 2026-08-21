@@ -37,7 +37,3 @@ export interface Supplies {
   product_id: number;
   stock_quantity: string;
 }
-
-export interface SQ {
-  stockquantity: number;
-}
