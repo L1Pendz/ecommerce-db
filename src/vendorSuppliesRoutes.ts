@@ -4,7 +4,7 @@ import { Product, SQ } from "./types";
 
 const router = Router();
 
-router.get("/orders", async (req: Request, res: Response) => {
+router.get("/vendors", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       `SELECT vendor_id, vendor_name, city
