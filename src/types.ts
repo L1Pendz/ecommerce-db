@@ -7,7 +7,7 @@ export interface Customer {
 
 export interface Order {
   order_id: string;
-  custormer_id: string;
+  customer_id: string;
   order_date: Date;
   shipping_city: string;
 }
@@ -34,6 +34,6 @@ export interface Vendor {
 
 export interface Supplies {
   vendor_id: string;
-  product_id: number;
-  stock_quantity: string;
+  product_id: string;
+  stock_quantity: number;
 }

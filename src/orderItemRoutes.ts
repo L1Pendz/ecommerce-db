@@ -11,7 +11,7 @@ router.get(
     try {
       const result = await pool.query(
         `SELECT order_id, product_id, quantity, discount
-        FROM orders_items
+        FROM orders_item
         WHERE order_id = $1`,
         [orderId],
       );

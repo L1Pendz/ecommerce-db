@@ -8,7 +8,7 @@ router.get("/customers", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       `SELECT customer_id, customer_name, city, membership_level
-      FROM customers`,
+      FROM customer`,
     );
     res.status(200).json(result.rows);
   } catch (error) {
@@ -21,7 +21,7 @@ router.get("/customers/:id", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       `SELECT customer_id, customer_name, city, membership_level
-      FROM customers
+      FROM customer
       WHERE customer_id = $1`,
       [id],
     );
@@ -35,7 +35,7 @@ router.get("/customers/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/customer", async (req: Request, res: Response) => {
+router.post("/customers", async (req: Request, res: Response) => {
   const { customer_id, customer_name, city, membership_level }: Customer =
     req.body;
   try {
@@ -58,7 +58,7 @@ router.put("/customers/:id", async (req: Request, res: Response) => {
     const result = await pool.query(
       `UPDATE customer
       SET city = $1, membership_level = $2
-      WHERE id = $3
+      WHERE customer_id = $3
       RETURNING customer_id, customer_name, city, membership_level`,
       [city, membership_level, id],
     );
@@ -78,7 +78,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(
       `DELETE FROM customer 
-      WHERE id = $1
+      WHERE customer_id = $1
       RETURNING customer_id, customer_name, city, membership_level`,
       [id],
     );

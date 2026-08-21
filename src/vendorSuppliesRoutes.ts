@@ -39,15 +39,16 @@ router.get(
 );
 
 router.put("/supplies/:vendorId/:productId", async (req: Request, res: Response) => {
-  const { vendorId } = req.params;
+  const { vendorId, productId } = req.params;
   const { stock_quantity }: Supplies = req.body;
   try {
     const result = await pool.query(
       `UPDATE supplies
       SET stock_quantity = $1
       WHERE vendor_id = $2
+      AND product_id = $3
       RETURNING vendor_id, product_id, stock_quantity`,
-      [stock_quantity, vendorId],
+      [stock_quantity, vendorId, productId],
     );
     if (result.rows.length === 0) {
       res.status(404).json({ error: "Vendor not found" });
